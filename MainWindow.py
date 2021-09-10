@@ -71,9 +71,7 @@ class Window(QMainWindow):
 		self.labelWidget.setText(self.label)
 
 	def calc(self,string):
-		if '^' in string:
-			args = string.split('^',2)
-			return self.calc(args[0])**self.calc(args[1])
+
 		if '+' in string:
 			args = string.split('+',2)
 			return self.calc(args[0]) + self.calc(args[1])
@@ -88,6 +86,9 @@ class Window(QMainWindow):
 			if float(args[1]) == 0:
 				return "Divide by 0"
 			return (self.calc(args[0]) / self.calc(args[1]))
+		if '^' in string:
+			args = string.split('^',2)
+			return self.calc(args[0])**self.calc(args[1])
 
 		r=float(string)
 		return r
