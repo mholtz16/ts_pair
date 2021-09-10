@@ -1,8 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QPushButton, QMainWindow, QLabel
 import sys
-from PyQt5 import QtGui
 from PyQt5.QtCore import QRect
-from PyQt5 import QtCore
 
 
 class Window(QMainWindow):
@@ -67,6 +65,8 @@ class Window(QMainWindow):
 
 
 	def on_button(self,i):
+		if self.label == 'Divide by 0':
+			self.clear()
 		self.label = self.label + str(i)
 		self.labelWidget.setText(self.label)
 
