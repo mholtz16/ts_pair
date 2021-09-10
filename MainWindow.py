@@ -12,7 +12,7 @@ class Window(QMainWindow):
 		self.top = 100
 		self.left=100
 		self.width = 400
-		self.height = 300
+		self.height = 260
 		self.label=""
 
 
@@ -33,8 +33,9 @@ class Window(QMainWindow):
 		self.CreateButton('-',110,40)
 		self.CreateButton('*',110,75)
 		self.CreateButton('/',110,110)
-		self.CreateEqual(110,145)
-		self.CreateClear(110,180)
+		self.CreateButton('^',110,145)
+		self.CreateEqual(110,180)
+		self.CreateClear(110,215)
 		self.labelWidget = QLabel(self)
 		self.labelWidget.setGeometry(180,5,300,35)
 		self.show()
@@ -67,11 +68,12 @@ class Window(QMainWindow):
 
 	def on_button(self,i):
 		self.label = self.label + str(i)
-		print(self.label)
 		self.labelWidget.setText(self.label)
 
 	def calc(self,string):
-		print(string)
+		if '^' in string:
+			args = string.split('^',2)
+			return self.calc(args[0])**self.calc(args[1])
 		if '+' in string:
 			args = string.split('+',2)
 			return self.calc(args[0]) + self.calc(args[1])
@@ -83,11 +85,11 @@ class Window(QMainWindow):
 			return self.calc(args[0]) * self.calc(args[1])
 		if '/' in string:
 			args = string.split('/',2)
-			if int(args[1]) == 0:
+			if float(args[1]) == 0:
 				return "Divide by 0"
-			return int(self.calc(args[0]) / self.calc(args[1]))
+			return (self.calc(args[0]) / self.calc(args[1]))
 
-		r=int(string)
+		r=float(string)
 		return r
 
 App = QApplication(sys.argv)
